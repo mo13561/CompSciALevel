@@ -25,11 +25,11 @@ public class PQueue<T> {//Priority Queue made with a generic linked list
             Node<T> traversal = this.head;//object to traverse the list, starting at the first item to be removed next
             boolean notAdded = true;//flag
             while (notAdded) {//could (and should) be a for loop to size, but that would require the use of breaks.
-                if (traversal.next == null) {//if there is no next item, make one.
-                    traversal.next = new Node<>(value, traversal);
+                if ((Integer)traversal.value > (Integer)value) {//if the traversal itself is bigger, then the object before is the value
+                    this.head = new Node<>(value, traversal, traversal.before);
                     notAdded = false;
-                } else if ((Integer)traversal.value > (Integer)value) {//if the traversal itself is bigger, then the object before is the value
-                    this.head = traversal.before = traversal.before.next = new Node<>(value, traversal, traversal.before);
+                } else if (traversal.next == null) {//if there is no next item, make one.
+                    traversal.next = new Node<>(value, traversal);
                     notAdded = false;
                 } else if ((Integer)traversal.next.value > (Integer)value) {//if the next item is bigger, then the item is added before it.
                     traversal.next.before = traversal.next = new Node<>(value, traversal.next, traversal);
