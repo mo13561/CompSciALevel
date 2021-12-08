@@ -1,19 +1,19 @@
 package DataStructures.src;
-public class Hashmap<T> {
-    class Helper<V> {
+ublic class Hashmap<T> {
+    class KeyValue<V> {
         private int key;
         private int position;
         private V value;
 
-        public Helper(int key, V value) {
+        public KeyValue(int key, V value) {
             setKey(key);
             setValue(value);
-            setPosition(hasher(key));
+            setPosition(hashingFunction(key));
         }
 
-        public int hasher(int key) {
+        public int hashingFunction(int key) {
             int pos = key % size;
-            if (map[pos] != null) pos = hasher(key+1);
+            if (map[pos] != null) pos = hashingFunction(key+1);
             return pos;
         }
 
@@ -39,21 +39,21 @@ public class Hashmap<T> {
     }
     private int size = 11;
     private int length = 0;
-    Helper<T>[] map;
+    KeyValue<T>[] map;
 
     public Hashmap() {
-        this.map = new Helper[this.size];
+        this.map = new KeyValue[this.size];
     }
 
     public Hashmap(int size) {
         this.size = size;
-        this.map = new Helper[this.size];
+        this.map = new KeyValue[this.size];
     }
 
     public void add(int key, T value) throws UnsupportedOperationException  {
         if (isFull()) throw new UnsupportedOperationException("There is no empty address");
         if (contains(key)) throw new IllegalArgumentException("The key is already present");
-        Helper<T> helper = new Helper<>(key, value);
+        KeyValue<T> helper = new KeyValue<>(key, value);
         map[helper.position] = helper;
         this.length++;
     }
