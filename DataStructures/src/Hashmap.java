@@ -1,5 +1,5 @@
 package DataStructures.src;
-ublic class Hashmap<T> {
+public class Hashmap<T> {
     class KeyValue<V> {
         private int key;
         private int position;
