@@ -45,7 +45,7 @@ public class LinkedList<G> {
         while (current.next != null && current.getValue() != value) {
             current = current.next;
         }
-        if (!current.getValue().toString().equals(value.toString())) throw new Exception("There is no value " + value + " in the list");
+        if (current.getValue() != value) throw new Exception("There is no value " + value + " in the list");
         if (current.next == null) {
             current.previous.next = null;
         } else {
