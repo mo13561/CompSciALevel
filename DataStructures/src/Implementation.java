@@ -25,7 +25,6 @@ public class Implementation {
         System.out.println(list);
         list.remove(5);
         System.out.println(list);
-        System.out.println(list);
         //        list.remove(6);
         System.out.println(list.pop(2));
         System.out.println(list);
