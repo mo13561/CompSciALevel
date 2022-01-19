@@ -1,5 +1,5 @@
 package DataStructures.src;
-public class PriorityQ <T> {
+public class PriorityQ <T> {//Generic priority queue with priority as a parameter
     static class Node<T> {//Node class to make linked list
         T value;
         int priority;
