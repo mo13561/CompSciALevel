@@ -1,3 +1,4 @@
+package DataStructures.src;
 public class PriorityQ <T> {
     static class Node<T> {//Node class to make linked list
         T value;
@@ -54,7 +55,10 @@ public class PriorityQ <T> {
             current = current.next;
         }
         if (!current.value.toString().equals(value.toString())) throw new Exception("There is no value " + value + " in the list");
-        if (current.next == null) {
+        if (this.head == current) {
+            this.head = this.head.next;
+            this.head.before = null;
+        } else if (current.next == null) {
             current.before.next = null;
         } else {
             current.before.next = current.next;
@@ -64,14 +68,24 @@ public class PriorityQ <T> {
         return current.value;
     }
 
-    public T pop() throws Exception {
+    public T pop() throws Exception {//removes first item in queue
         if (isEmpty()) {
             throw new Exception("The queue is empty, you cannot remove any items from it.");
         }
         T value = this.head.value;
         this.head = this.head.next;
+        this.head.before = null;
         this.size--;
         return value;
+    }
+
+    public T get(int index) throws Exception {
+        if (index >= this.size) throw new Exception("Invalid pointer exception");
+        Node<T> traversal = this.head;
+        for (int i = index; i > 0; i--) {
+            traversal = traversal.next;
+        }
+        return traversal.value;
     }
 
     public String toString() {//toString method to display queue
