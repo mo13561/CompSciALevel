@@ -1,4 +1,5 @@
 package DataStructures.src;
+
 public class LinkedList<G> {
     class Node {
         G value;
@@ -18,6 +19,23 @@ public class LinkedList<G> {
         public G getValue() {
             return this.value;
         }
+
+        public String toString() {
+            return this.value + "";
+        }
+
+        public boolean hasNext() {
+            return this.next != null;
+        }
+
+        public Node getNext() {
+            return next;
+        }
+
+        public void setNext(Node next) {
+            this.next = next;
+        }
+
     }
 
     Node front;
@@ -42,18 +60,30 @@ public class LinkedList<G> {
     public G remove(G value) throws Exception {
         if (isEmpty()) throw new Exception("The list is empty, there is no element to remove");
         Node current = this.front;
-        while (current.next != null && current.getValue() != value) {
+        while (current.next != null && !current.getValue().toString().equals(value.toString())) {
             current = current.next;
         }
-        if (current.getValue() != value) throw new Exception("There is no value " + value + " in the list");
-        if (current.next == null) {
-            current.previous.next = null;
+        if (!current.getValue().toString().equals(value.toString())) throw new Exception("There is no value " + value + " in the list");
+        if (current.previous == null) {
+            if (len() == 1) {
+                this.front = null;
+            } else {
+                this.front = this.front.next;
+                this.front.previous = null;
+            }
+        } else if (current.next == null) {
+            this.rear = this.rear.previous;
+            this.rear.next = null;
         } else {
             current.previous.next = current.next;
             current.next.previous = current.previous;
         }
         this.length--;
         return current.getValue();
+    }
+
+    public Node getFront() {
+        return this.front;
     }
 
     public int count(G value) {
@@ -75,11 +105,11 @@ public class LinkedList<G> {
         if (value == this.front.getValue()) return 0;
         Node current = this.front;
         int valueIndex = 0;
-        while (current.next != null && current.getValue() != value) {
+        while (current.next != null && !current.getValue().toString().equals(value.toString())) {
             current = current.next;
             valueIndex++;
         }
-        if (current.getValue() != value) throw new Exception("There is no such value present in the list");
+        if (!current.getValue().toString().equals(value.toString())) throw new Exception("There is no such value present in the list");
         return valueIndex;
     }
 
@@ -99,8 +129,8 @@ public class LinkedList<G> {
         length++;
     }
 
-    public G pop() throws Exception {
-        if (isEmpty()) throw new Exception("The list is empty");
+    public G pop() throws UnsupportedOperationException {
+        if (isEmpty()) throw new UnsupportedOperationException("The list is empty");
         Node removed = this.front;
         this.front = this.front.next;
         this.front.previous = null;
@@ -139,14 +169,14 @@ public class LinkedList<G> {
     }
 
     public boolean search(G value) {
-        if (this.front.getValue() == value || this.rear.getValue() == value) {
+        if (this.front.getValue().toString().equals(value.toString()) || this.rear.getValue().toString().equals(value.toString())) {
             return true;
         } else {
             return contains(value, this.front.next);
         }
     }
 
-    public boolean contains(G value, Node traversal) {
+    private boolean contains(G value, Node traversal) {
         if (traversal.getValue() == value) {
             return true;
         } else if (traversal.next.next == null) {
