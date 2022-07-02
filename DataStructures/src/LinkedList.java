@@ -1,5 +1,4 @@
 package DataStructures.src;
-
 public class LinkedList<G> {
     class Node {
         G value;
@@ -40,7 +39,7 @@ public class LinkedList<G> {
 
     Node front;
     Node rear;
-    int length;
+    private int length;
 
     public LinkedList() {
         this.front = this.rear =  null;
@@ -169,20 +168,33 @@ public class LinkedList<G> {
     }
 
     public boolean search(G value) {
+        if (this.len() == 0) {
+            return false;
+        }
         if (this.front.getValue().toString().equals(value.toString()) || this.rear.getValue().toString().equals(value.toString())) {
             return true;
         } else {
-            return contains(value, this.front.next);
+            return this.len() > 1 ? contains(value, this.front.next) : false;
         }
     }
 
     private boolean contains(G value, Node traversal) {
         if (traversal.getValue() == value) {
             return true;
-        } else if (traversal.next.next == null) {
+        } else if (!traversal.hasNext()) {
             return false;
         }
         return contains(value, traversal.next);
+    }
+
+    public G getValue(int index) throws Exception {
+        if (isEmpty()) throw new Exception("The list is empty");
+        if (index >= length || index < 0) throw new Exception("The specified index to out of bounds");
+        Node node = this.front;
+        for (int i = 0; i < index; i++) {
+            node = node.next;
+        }
+        return node.getValue();
     }
 
     public boolean isEmpty() {

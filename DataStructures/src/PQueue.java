@@ -1,5 +1,22 @@
 package DataStructures.src;
-public class PQueue<T> {//Priority Queue made with a generic linked list
+public class PQueue<T> { //Priority Queue made with a generic linked list
+    static class Node<T> {//Node class to make linked list
+        T value;
+        Node<T> next;
+        Node<T> before;
+
+        public Node(T value, Node<T> before) {
+            this.value = value;
+            this.before = before;
+            this.next = null;
+        }
+
+        public Node(T value, Node<T> next, Node<T> before) {
+            this.value = value;
+            this.next = next;
+            this.before = before;
+        }
+    }
     private int size;
     private int maxSize;
     private Node<T> head;//first item in queue
@@ -19,7 +36,7 @@ public class PQueue<T> {//Priority Queue made with a generic linked list
     public void add(T value) throws Exception {
         if (isEmpty()) {//if it is empty then the 'head' becomes the value
             this.head = new Node<>(value, null);
-        } else if (isFull()) {//if it is full, you acn't add any more. obviously.
+        } else if (isFull()) {//if it is full, you can't add any more. obviously.
             throw new Exception("The queue is full, you cannot add more items to it.");
         } else {
             Node<T> traversal = this.head;//object to traverse the list, starting at the first item to be removed next
@@ -72,20 +89,4 @@ public class PQueue<T> {//Priority Queue made with a generic linked list
     }
 }
 
-class Node<T> {//Node class to make linked list
-    T value;
-    Node<T> next;
-    Node<T> before;
 
-    public Node(T value, Node<T> before) {
-        this.value = value;
-        this.before = before;
-        this.next = null;
-    }
-
-    public Node(T value, Node<T> next, Node<T> before) {
-        this.value = value;
-        this.next = next;
-        this.before = before;
-    }
-}

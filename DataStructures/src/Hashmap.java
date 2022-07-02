@@ -15,7 +15,9 @@ public class Hashmap<K, T> {//generic hashmap modulus 11, dynamic.
 
         public int hashingFunction(int key) {
             int pos = key % modulus;
-            if (map[pos] != null) pos = hashingFunction(key+1);
+            if (map[pos] != null) {
+                pos = hashingFunction(key + 1);
+            }
             return pos;
         }
 
@@ -73,7 +75,9 @@ public class Hashmap<K, T> {//generic hashmap modulus 11, dynamic.
         if (isFull()) {
             enlarge();
         }
-        if (contains(keyToInt(key))) throw new IllegalArgumentException("The key is already present");
+        if (contains(keyToInt(key))) {
+            throw new IllegalArgumentException("The key is already present");
+        }
         KeyValue<T> helper = new KeyValue<>(key, value);
         map[helper.position] = helper;
         this.length++;
@@ -89,16 +93,19 @@ public class Hashmap<K, T> {//generic hashmap modulus 11, dynamic.
     }
 
     public void delete(K key) throws IllegalArgumentException {
-        if (!contains(key)) throw new IllegalArgumentException("The given key does not exist.");
+        if (!contains(key)) {
+            throw new IllegalArgumentException("The given key does not exist.");
+        }
         map[posFind(key)] = null;
         this.length--;
         this.rearrange();
     }
 
-
     public void rearrange() {
         for (int i = 0; i < this.maxSize; i++) {
-            if (map[i] == null) continue;
+            if (map[i] == null) {
+                continue;
+            }
             int prefPos = map[i].key % this.modulus;
             while (prefPos != i) {
                 if (map[prefPos] == null) {
@@ -113,12 +120,16 @@ public class Hashmap<K, T> {//generic hashmap modulus 11, dynamic.
     }
 
     public T item(int key) throws IllegalArgumentException {
-        if (!contains(key)) throw new IllegalArgumentException("The given key does not exist.");
+        if (!contains(key)) {
+            throw new IllegalArgumentException("The given key does not exist.");
+        }
         return map[posFind(key)].getValue();
     }
 
     public T item(K key) throws IllegalArgumentException {
-        if (!contains(key)) throw new IllegalArgumentException("The given key does not exist.");
+        if (!contains(key)) {
+            throw new IllegalArgumentException("The given key does not exist.");
+        }
         return map[posFind(key)].getValue();
     }
 
@@ -126,8 +137,9 @@ public class Hashmap<K, T> {//generic hashmap modulus 11, dynamic.
         int[] allKeys = new int[this.length];
         int index = 0;
         for (int i = 0; i < this.maxSize; i++) {
-            if (map[i] == null)
+            if (map[i] == null) {
                 continue;
+            }
             allKeys[index++] = map[i].getKey();
         }
         return allKeys;
@@ -140,8 +152,12 @@ public class Hashmap<K, T> {//generic hashmap modulus 11, dynamic.
     public int posFind(int key) {
         int pos = key % this.modulus;
         for (int i = 0; i < this.maxSize; i++) {
-            if (map[pos] == null) continue;
-            if (map[pos].key == key) return pos;
+            if (map[pos] == null) {
+                continue;
+            }
+            if (map[pos].key == key) {
+                return pos;
+            }
             pos = ++pos % this.modulus;
         }
         return -1;
@@ -151,8 +167,12 @@ public class Hashmap<K, T> {//generic hashmap modulus 11, dynamic.
         int key = keyToInt(genKey);
         int pos = key % this.modulus;
         for (int i = 0; i < this.maxSize; i++) {
-            if (map[pos] == null) continue;
-            if (map[pos].key == key && genKey.toString().equals(map[pos].getUnconvertedKey().toString())) return pos;
+            if (map[pos] == null) {
+                continue;
+            }
+            if (map[pos].key == key && genKey.toString().equals(map[pos].getUnconvertedKey().toString())) {
+                return pos;
+            }
             pos = ++pos % this.modulus;
         }
         return -1;
@@ -163,7 +183,9 @@ public class Hashmap<K, T> {//generic hashmap modulus 11, dynamic.
         int pos = key % this.modulus;
         for (int i = 0; i < this.maxSize; i++) {
             if (map[pos] == null) continue;
-            if (map[pos].getKey() == key && map[pos].getUnconvertedKey().toString().equals(genKey.toString())) return true;
+            if (map[pos].getKey() == key && map[pos].getUnconvertedKey().toString().equals(genKey.toString())) {
+                return true;
+            }
             pos = ++pos % this.modulus;
         }
         return false;
@@ -172,8 +194,12 @@ public class Hashmap<K, T> {//generic hashmap modulus 11, dynamic.
     public boolean contains(int key) {
         int pos = key % this.modulus;
         for (int i = 0; i < this.maxSize; i++) {
-            if (map[pos] == null) continue;
-            if (map[pos].getKey() == key) return true;
+            if (map[pos] == null) {
+                continue;
+            }
+            if (map[pos].getKey() == key) {
+                return true;
+            }
             pos = ++pos % this.modulus;
         }
         return false;
@@ -182,7 +208,9 @@ public class Hashmap<K, T> {//generic hashmap modulus 11, dynamic.
     public String toString() {
         String display = "";
         for (int i = 0; i < this.maxSize; i++) {
-            if (map[i] == null) continue;
+            if (map[i] == null) {
+                continue;
+            }
             display += "[ " + map[i].getUnconvertedKey() + " : " + map[i].getValue() + " ]";
         }
         return display;

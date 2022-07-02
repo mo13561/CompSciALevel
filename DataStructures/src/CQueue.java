@@ -1,6 +1,5 @@
 package DataStructures.src;
-
-public class CQueue<T> { // Circular queue made with generics
+public class CQueue<T> { //Circular queue made with generics
     private CQueue<T> front, rear;
     private T current;
     private CQueue<T> next;

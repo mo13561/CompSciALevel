@@ -27,19 +27,29 @@ public class AdjList<G> {//generic adjacency list made with generic Hashmap
             contdest = false;
         }
         if (contsrc) {
-            if (adjList.item(src).contains(dest))
+            if (adjList.item(src).contains(dest)) {
                 throw new Exception("The edge already exists");
+            }
             adjList.item(src).add(dest, weight);
         }
         if (contdest && !directed) {
-            if (adjList.item(dest).contains(src))
+            if (adjList.item(dest).contains(src)) {
                 throw new Exception("The edge already exists");
+            }
             adjList.item(dest).add(src, weight);
         }
     }
 
+    public int size() {
+        return adjList.length();
+    }
+
     public Hashmap<G, Integer> getAdjacentNodes(G node) {
         return adjList.item(node);
+    }
+
+    public int getNumberOfAdjNodes(G node) {
+        return adjList.item(node).length();
     }
 
     public boolean contains(G node) {
@@ -68,5 +78,4 @@ public class AdjList<G> {//generic adjacency list made with generic Hashmap
         return adjList.toString();
     }
 }
-
 

@@ -29,6 +29,10 @@ public class PriorityQ <T> {//Generic priority queue with priority as a paramete
         this.size = 0;
     }
 
+    public int size() {
+        return this.size;
+    }
+
     public void add(T value, int priority) {
         if (isEmpty()) {
             this.head = new Node<>(value, null, priority);
@@ -73,8 +77,12 @@ public class PriorityQ <T> {//Generic priority queue with priority as a paramete
             throw new Exception("The queue is empty, you cannot remove any items from it.");
         }
         T value = this.head.value;
-        this.head = this.head.next;
-        this.head.before = null;
+        if (this.size == 1) {
+            this.head = null;
+        } else {
+            this.head = this.head.next;
+            this.head.before = null;
+        }
         this.size--;
         return value;
     }
